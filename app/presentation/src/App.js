@@ -1,60 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import styled from 'styled-components';
+import {Logo, WhiteLogo, Title, Slide, SlideCenter, SlideBottom, SlideCenterVertical, Island, Background} from './Components';
 
 class TitleSlide extends Component{
   render() {
     return (
-      <FullSize>
-        <h1 className='title'>{this.props.title}</h1>
-        <p className='logo'>DARESAY</p>
-        </FullSize>
+      <SlideCenterVertical>
+        <Title>{this.props.title}</Title>
+        <Logo/>
+      </SlideCenterVertical>
     )
   }
 }
 
-const FullSize = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex; 
-  background-color: grey;
-  `;
-
-const FullSizeCenterContent = FullSize.extend`
-  align-items: center;
-  justify-content: center;
-`
-
-const Island = styled.div`
-  padding: 20pt;
-  min-width: 40%;
-  min-height: 30%;
-  background-color: white;
-  display: flex; 
-  align-items: center;
-  justify-content: center;
-`
-
-const CeneterContent = {
-  display: 'flex', 
-  alignItems: 'center', 
-  justifyContent: 'center'
-}
-
 const IslandSlide = props => {
-  return <FullSizeCenterContent>
-      <Island>
-        <h1>
-          {props.title}
-        </h1>
-      </Island>
-    </FullSizeCenterContent>
+  return (
+    <SlideBottom>
+      <Background src={props.backgroundSrc}/>
+      <Island><h1>{props.title}</h1></Island>
+      <WhiteLogo/>
+    </SlideBottom>
+  )
 }
 
 class App extends Component {
   state = {
-    currentSlide: 1,
+    currentSlide: 0,
     slides: [
       {
         type: "TitleSlide",
@@ -62,7 +32,8 @@ class App extends Component {
       },
       {
         type: "IslandSlide",
-        title: "ANOTHER SLIDE"
+        title: "another slide",
+        backgroundSrc: "./img/NatGeo02.jpg"
       }
     ]
   }
@@ -75,25 +46,29 @@ class App extends Component {
   }
   
   onKeyDown = event => {
-    if (event.keyCode == 39) {
+    if (event.keyCode === 39) {
       this.setState({
         currentSlide: Math.min(this.state.currentSlide + 1, this.state.slides.length - 1)
       })
-    } else if (event.keyCode == 37) {
+    } else if (event.keyCode === 37) {
       this.setState({
         currentSlide: Math.max(this.state.currentSlide - 1, 0)
       })
     }
   }
-  
-  render() {
+
+  renderSlide = () => {
     const slide = this.state.slides[this.state.currentSlide]
-    if (slide.type == "TitleSlide") {
+    if (slide.type === "TitleSlide") {
       return <TitleSlide { ...slide}/>
-    } else if (slide.type == "IslandSlide") {
+    } else if (slide.type === "IslandSlide") {
       return <IslandSlide { ...slide}/>
     }
     return null
+  }
+  
+  render() {
+    return this.renderSlide()
   }
 }
 
