@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Logo, WhiteLogo, Title, Slide, SlideCenter, SlideBottom, SlideCenterVertical, Island, Background, Video } from './Components';
+import { Logo, WhiteLogo, Title, Slide, SlideCenter, SlideBottom, SlideCenterVertical, Island, Background, Video } from './StyledComponents';
 import { Player } from 'video-react';
 
 class TitleSlide extends Component {
