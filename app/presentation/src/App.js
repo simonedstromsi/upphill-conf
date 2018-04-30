@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import {Logo, WhiteLogo, Title, Slide, SlideCenter, SlideBottom, SlideCenterVertical, Island, Background} from './Components';
+import {Logo, WhiteLogo, Title, Slide, SlideCenter, SlideBottom, SlideCenterVertical, Island, Background, Video} from './Components';
+import { Player } from 'video-react';
+import './App.css';
+
 
 class TitleSlide extends Component{
   render() {
@@ -9,7 +12,7 @@ class TitleSlide extends Component{
         <Logo/>
       </SlideCenterVertical>
     )
-  }
+  } 
 }
 
 const IslandSlide = props => {
@@ -22,9 +25,21 @@ const IslandSlide = props => {
   )
 }
 
+const IslandVideoSlide = props => {
+  return (
+    <SlideBottom>
+      <Video src={props.videoSrc}/>
+      <Island><h1>{props.title}</h1></Island>
+      <WhiteLogo/>
+    </SlideBottom>
+  )
+}
+
 class App extends Component {
   state = {
+    prevSlide: 0,
     currentSlide: 0,
+    nextSlide: 1,
     slides: [
       {
         type: "TitleSlide",
@@ -34,6 +49,11 @@ class App extends Component {
         type: "IslandSlide",
         title: "another slide",
         backgroundSrc: "./img/NatGeo02.jpg"
+      },
+      {
+        type: "IslandVideoSlide",
+        title: "another video slide",
+        videoSrc: "./video/tractor.mp4"
       }
     ]
   }
@@ -46,29 +66,37 @@ class App extends Component {
   }
   
   onKeyDown = event => {
+    // Next
     if (event.keyCode === 39) {
       this.setState({
         currentSlide: Math.min(this.state.currentSlide + 1, this.state.slides.length - 1)
       })
-    } else if (event.keyCode === 37) {
+    } 
+    // Prev
+    else if (event.keyCode === 37) {
       this.setState({
         currentSlide: Math.max(this.state.currentSlide - 1, 0)
       })
     }
   }
 
-  renderSlide = () => {
-    const slide = this.state.slides[this.state.currentSlide]
+  getSlide(slide) {
     if (slide.type === "TitleSlide") {
-      return <TitleSlide { ...slide}/>
+      return <TitleSlide key={slide.type} { ...slide}/>
     } else if (slide.type === "IslandSlide") {
-      return <IslandSlide { ...slide}/>
+      return <IslandSlide key={slide.type} { ...slide}/>
+    } else if (slide.type === "IslandVideoSlide") {
+      return <IslandVideoSlide key={slide.type} { ...slide}/>
     }
     return null
   }
+
+  renderSlides = () => {  
+    return this.getSlide(this.state.slides[this.state.currentSlide])  
+  }
   
   render() {
-    return this.renderSlide()
+    return this.renderSlides()
   }
 }
 

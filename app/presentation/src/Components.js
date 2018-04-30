@@ -74,3 +74,19 @@ align-items: center;
 justify-content: center;
 text-transform: uppercase;
 `
+
+export const Video = (props) => {
+    const VideoFullScreen = styled.video`
+        z-index: -1;
+        position: fixed;
+        top: 50%; left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        transform: translate(-50%, -50%);
+    `
+    return <VideoFullScreen autoPlay loop muted>
+        {<source src={props.src} type="video/mp4"/>}
+    </VideoFullScreen>
+}
