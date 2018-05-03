@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Logo, WhiteLogo, Title, Slide, SlideCenter, SlideBottom, SlideCenterVertical, Island, Background, Video } from './StyledComponents';
 import { Player } from 'video-react';
+import { HorizontalSplitSlide } from './components/HorizontalSplitSlide'
 
 class TitleSlide extends Component {
     render() {
@@ -43,6 +44,8 @@ export const Slides = {
                 return <IslandSlide key={type} {...props} />
             case "IslandVideoSlide":
                 return <IslandVideoSlide key={type} {...props} />
+            case "HorizontalSplitSlide":
+                return <HorizontalSplitSlide key={type} {...props} />
             default:
                 return null
         }

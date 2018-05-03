@@ -22,6 +22,11 @@ class App extends Component {
         type: "IslandVideoSlide",
         title: "another video slide",
         videoSrc: "./video/tractor.mp4"
+      },
+      {
+        type: "HorizontalSplitSlide",
+        image: "./img/NatGeo02.jpg",
+        text: "Some text here ....."
       }
     ]
   }
@@ -31,6 +36,10 @@ class App extends Component {
   }
   componentWillUnmount() {
     document.removeEventListener("keydown", this.onKeyDown, false);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.currentSlide != nextState.currentSlide;
   }
 
   onKeyDown = event => {

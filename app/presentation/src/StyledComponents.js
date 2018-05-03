@@ -20,7 +20,7 @@ export const Background = (props) => {
         background-position: center;
         background-image: url(${props.src});
     `
-    return <ImgFullSize/>
+    return <ImgFullSize />
 }
 
 
@@ -29,7 +29,7 @@ export const Logo = () => {
 }
 
 export const WhiteLogo = () => {
-    return <LogoText style={{color: "white"}}>daresay</LogoText>
+    return <LogoText style={{ color: "white" }}>daresay</LogoText>
 }
 
 export const Title = styled.h1`
@@ -87,6 +87,6 @@ export const Video = (props) => {
         transform: translate(-50%, -50%);
     `
     return <VideoFullScreen autoPlay loop muted>
-        {<source src={props.src} type="video/mp4"/>}
+        {<source src={props.src} type="video/mp4" />}
     </VideoFullScreen>
 }
